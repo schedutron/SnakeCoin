@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import hashlib as hasher
+import hashlib
 
 class Block():
     def __init__(self, index, timestamp, data, previous_hash):
@@ -10,10 +10,10 @@ class Block():
         self.hash = self.hash_block()
 
     def  hash_block(self):
-        sha = hasher.sha256()
-        sha.update(str(self.index)
-            + str(self.timestamp)
-            + str(self.data)
-            + str(self.previous_hash)
-        )
+        sha = hashlib.sha256()
+        hash_data = "{}{}{}{}".format(self.index,
+                                      self.timestamp,
+                                      self.data,
+                                      self.previous_hash).encode("utf-8")
+        sha.update(bytes(hash_data))
         return sha.hexdigest()
